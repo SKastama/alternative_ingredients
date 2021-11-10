@@ -7,10 +7,25 @@
     <title>Alternative Ingredients</title>
 </head>
 <body>
-    <table>
-        <tbody>
-            
-        </tbody>
-    </table>
+    <form id="searchForm" onsubmit="search(event)" >
+        <h2>Search</h2>
+        <!-- <label for="amount">Amount:</label>
+        <input type="number" name="amount">
+        <label for="measurement">Measurement:</label>
+        <input type="text" name="measurement"> -->
+        <input type="text" name="item">
+        <input type="submit" value="Search" >
+    </form>
+    
+    <script>
+        function search(e){
+            e.preventDefault();
+            var searchForm = document.getElementById('searchForm')
+            var form = new FormData(searchForm);
+            fetch('http://localhost:5000/search',{method:'POST',body:form})
+                .then(res => res.json() )
+                .then( data => console.log(data) )
+        }
+    </script>
 </body>
 </html>
