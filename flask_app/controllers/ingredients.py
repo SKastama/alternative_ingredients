@@ -14,20 +14,16 @@ def index():
 @app.route('/search', methods=['POST'])
 def search():
     # print(request.form['item'])
-    url= 'https://www.bon-api.com/api/v1/ingredient/alternatives'
+    url= f'https://api.spoonacular.com/food/ingredients/substitutes?apiKey={os.environ.get("FLASK_APP_API_KEY")}&ingredientName={request.form["item"]}'
     headers= {
-        'authorization': f'Token {os.environ.get("FLASK_APP_API_KEY")}',
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
     }
     print(request.form['item'])
-    payload= {
-        "ingredients": [f'{request.form["item"]}']
-    }
-    # 'ingredients': [f'{request.form["amount"]}{request.form["measurement"]} {request.form["item"]}']
     # now we inject the query into our string
-    r = requests.post(url, headers=headers, data=payload)
+    r = requests.get(url, headers=headers)
     # we must keep in line with JSON format.
     # requests has a method to convert the data coming back into JSON.
     print(r.status_code)
     print(r.text)
     return jsonify( r.json() )
+    
