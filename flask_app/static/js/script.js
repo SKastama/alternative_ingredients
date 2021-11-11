@@ -6,14 +6,18 @@ function search(e){
         .then(res => res.json() )
         .then(data => {
             var subs = document.getElementById('subs')
+            removeAllChildNodes(subs);
             for (let i=0; i < data.substitutes.length; i++) {
                 let row = document.createElement('tr');
-
                 let name = document.createElement('td');
                 name.innerHTML = data.substitutes[i];
                 row.appendChild(name);
                 subs.appendChild(row);
             }
         })
-        
+}
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
