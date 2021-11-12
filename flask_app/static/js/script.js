@@ -1,3 +1,4 @@
+// Retrieves Substitutes
 function search(e){
     e.preventDefault();
     var searchForm = document.getElementById('searchForm')
@@ -36,6 +37,7 @@ function search(e){
             }
         })
 }
+
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -44,4 +46,23 @@ function removeAllChildNodes(parent) {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Retrieves Autocomplete in Searchbar
+function autocomplete(e) {
+    e.preventDefault();
+    var autocompleteForm = document.getElementById('autocompleteForm')
+    var form = new FormData(autocompleteForm);
+    fetch('http://localhost:5000/autocomplete',{method:'POST',body:form})
+        .then(res => res.json() )
+        .then(data => {
+            var searchResult = document.getElementById('searchResult');
+            removeAllChildNodes(searchResult);
+            for (let i=0; i < data.results.length; i++) {
+                let result = document.createElement('option');
+
+                result.innerHTML = data.results[i].title;
+                searchResult.appendChild(result);
+            }
+        })
 }

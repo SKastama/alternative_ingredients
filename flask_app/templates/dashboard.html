@@ -8,9 +8,10 @@
     <script src="{{  url_for('static', filename='js/script.js')}}" async></script>
 </head>
 <body>
-    <form id="searchForm" onsubmit="search(event)" >
-        <h2>Search</h2>
-        <input type="text" name="item">
+    <h2>Search</h2>
+    <form id="searchForm" onsubmit="search(event)" autocomplete="off">
+        <input oninput="autocomplete(event)" type="text" name="item" placeholder="Enter ingredient name">
+        <datalist id="searchResult"></datalist>
         <input type="submit" value="Search" >
     </form>
     <div id="message">
